@@ -1,0 +1,6 @@
+C:\Users\thefr\source\repos\Memory\Memory\obj\Debug\Memory.csprojAssemblyReference.cache
+C:\Users\thefr\source\repos\Memory\Memory\obj\Debug\MainWindow.g.cs
+C:\Users\thefr\source\repos\Memory\Memory\obj\Debug\WelkomPage.g.cs
+C:\Users\thefr\source\repos\Memory\Memory\obj\Debug\App.g.cs
+C:\Users\thefr\source\repos\Memory\Memory\obj\Debug\Memory_MarkupCompile.cache
+C:\Users\thefr\source\repos\Memory\Memory\obj\Debug\Memory_MarkupCompile.lref
