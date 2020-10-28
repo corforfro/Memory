@@ -17,8 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using Memory.Classes;
 using Memory.Properties;
+using Memory.Classes;
 
 namespace Memory
 {
@@ -70,8 +70,8 @@ namespace Memory
             this.player1 = player1;
 
             singleplayer = true;
-            
-            txtBeurtnaam.Text = player1
+
+            txtBeurtNaam.Text = player1;
             lblScore2.Content = "";
             currentPlayer = player1;
 
@@ -93,13 +93,13 @@ namespace Memory
 
             singleplayer = false;
 
-            txtBeurtnaam.Text = player1
+            txtBeurtNaam.Text = player1;
             lblScore1.Content = player1Score.ToString();
             lblScore2.Content = player2Score.ToString();
             txtScore_1.Text = player1;
             txtScore_2.Text = player2;
 
-            çurrentPlayer = player1;
+            currentPlayer = player1;
             grid = new MemoryGrid(GameGrid, nr_cols, nr_rows, bgImages, this, false, firstCard, secondCard);
 
             bgImages = grid.getBgImages();
@@ -168,6 +168,15 @@ namespace Memory
             NavigationService.Navigate(new PausePage(this));
             /* puts a stop on the timer.
             timer.Stop(); */
+        }
+
+        /// <summary>
+        /// Updates the current player textbox with given string
+        /// </summary>
+        /// <param name="newPlayer"></param>
+        public void UpdatePlayer(string newPlayer)
+        {
+            txtBeurtNaam.Text = newPlayer;
         }
 
 
@@ -240,7 +249,7 @@ namespace Memory
 
             if (cardsOpen == 2)
             {
-                FlipsCards(card, front, back);
+                FlipCards(card, front, back);
                 cardsOpen = 0;
             }
             
@@ -329,7 +338,10 @@ namespace Memory
             {
                 foreach (var img in bgImages)
                 {
-                    img.Source = back;
+                    if (img.Tag != null && img.Tag != "" && img.Source != null && img.Source != back)
+                    {
+                        img.Source = back;
+                    }
                 }
                 firstCard.Source = back;
                 secondCard.Source = back;
@@ -338,9 +350,14 @@ namespace Memory
             {
                 foreach (Image img in bgImages)
                 {
-                    if(img.Tag != null && img.Tag != "" && firstCard.Source != null && secondCard.Source != null)
+                    if(img.Tag != null && img.Tag != "" && img.Source != null && img.Source != back)
                     {
                         if (firstCard.Source.ToString() == img.Tag.ToString())
+                        {
+                            img.Tag = null;
+                            img.Source = null;
+                        }
+                        else if (secondCard.Source.ToString() == img.Tag.ToString())
                         {
                             img.Tag = null;
                             img.Source = null;
@@ -434,7 +451,7 @@ namespace Memory
         /// </summary>
         private void UpdateScore()
         {
-            if (!singlePlayer && cardsOpen == 2 && firstCard.Tag.ToString() == secondCard.Tag.ToString())
+            if (!singleplayer && cardsOpen == 2 && firstCard.Tag.ToString() == secondCard.Tag.ToString())
             {
                 if (currentPlayer == player1)
                 {
@@ -452,6 +469,31 @@ namespace Memory
                 this.player1Score++;
                 txtScore_1.Text = player1Score.ToString();
             }
+        }
+
+        /// <summary>
+        /// Checks if there is a winner by reading in all the flipped cards. If they are all flipped return true
+        /// </summary>
+        /// <returns>true/false</returns>
+        private bool CheckWinner()
+        {
+            int imagesFlipped = 0;
+            int imagesFlipped2 = 0;
+            bgImages.ForEach(delegate (Image img)
+            {
+                imagesFlipped2++;
+                if (img.Tag == null || img.Tag == "")
+                {
+                    imagesFlipped++;
+                }
+            });
+
+            if (imagesFlipped == (nr_cols * nr_rows) - 2)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         ///<summary>
@@ -510,8 +552,8 @@ namespace Memory
             secondCard.Tag = stringToBitMap(card2);
             firstCard.Source = stringToBitMap(card1);
             secondCard.Source = stringToBitMap(card2);
-            firstCard.DataContext = new BitmapImage(new Uri("Resource/Pictures/" + (string)Settings.Default["ThemeName"] + "/backimag", UriKind.Relative));
-            secondCard.DataContext = new BitmapImage(new Uri("Resource/Pictures/" + (string)Settings.Default["ThemeName"] + "/backimag", UriKind.Relative));
+            firstCard.DataContext = new BitmapImage(new Uri("Resource/Themes/" + (string)Settings.Default["ThemeName"] + "/backimag", UriKind.Relative));
+            secondCard.DataContext = new BitmapImage(new Uri("Resource/Themes/" + (string)Settings.Default["ThemeName"] + "/backimag", UriKind.Relative));
 
             player1Score = Convert.ToInt32(tr.ReadLine());
             player1Score = Convert.ToInt32(tr.ReadLine());

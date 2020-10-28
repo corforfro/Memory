@@ -55,10 +55,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Highscore.cs" />
+    <Compile Include="Classes\HighscoreList.cs" />
+    <Compile Include="Classes\MemoryGrid.cs" />
+    <Compile Include="Classes\ObjectSterializer.cs" />
     <Compile Include="InstellingenPage.xaml.cs">
       <DependentUpon>InstellingenPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MemoryGrid.cs" />
     <Compile Include="MemoryPage.xaml.cs">
       <DependentUpon>MemoryPage.xaml</DependentUpon>
     </Compile>

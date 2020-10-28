@@ -16,7 +16,6 @@ using Memory.Properties;
 using System.IO;
 using System.Media;
 using System.Threading;
-using Memory.classes;
 
 namespace Memory
 {
