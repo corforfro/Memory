@@ -1,0 +1,16 @@
+﻿<Window x:Class="WpfApp2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Label x:Name="TimerLabel" Content="0" FontFamily="Segoe UI" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+        <Button Click="Startbtn_click"  Height="50" Width="200" FontFamily="Segoe UI" FontSize="40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10" Content="Start"></Button>
+        <Button Click="Pausebtn_click" Height="50" Width="200" FontFamily="Segoe UI" FontSize="40" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="296,0,296,10" Content="pause"></Button>
+        <Button Click="Stopbtn_click" Height="50" Width="200" FontFamily="Segoe UI" FontSize="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10">Stop</Button>
+
+    </Grid>
+</Window>
