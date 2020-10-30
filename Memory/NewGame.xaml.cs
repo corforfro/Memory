@@ -101,6 +101,7 @@ namespace speler_selectie_scherm
             }
             Image styleImage = new Image();
             Uri path = new Uri("C:/Users/matti/source/repos/new game/new game/Images/1.png", UriKind.Relative);
+            /* deze path werkt niet voor iedereen sinds Arnold niet zijn User matti genoemd heeft */
             
             styleImage.Source = new BitmapImage(path);
 
