@@ -7,30 +7,30 @@ using System.Threading.Tasks;
 namespace Memory.Classes
 {
     /// <summary>
-    /// Highscore object used after the memory game is over to set up & store the players data.
+    /// Highscore object used to store the data of a player after they finish a game
     /// </summary>
     [Serializable]
     public class Highscore
     {
-        ///<summary>
+        /// <summary>
         /// Name of the player
         /// </summary>
         public string Name { get; set; }
-        ///<summary>
-        /// Score of the player
+        /// <summary>
+        /// Score the player got during the game
         /// </summary>
         public int Score { get; set; }
-        ///<summary>
-        /// Time of the duration within the game
+        /// <summary>
+        /// Time of the duration of the game
         /// </summary>
         public string Time { get; set; }
 
-        ///<summary>
-        /// class used to store the data in
+        /// <summary>
+        /// class used to store highscore data in
         /// </summary>
-        /// <param name="Name"> String of the players name. </param>
-        /// <param name="Score"> int of the score achieved. </param>
-        /// <param name="Name"> String of the time the game took. </param>
+        /// <param name="Name">string of the player name</param>
+        /// <param name="Score">int of the score achieved in the game</param>
+        /// <param name="Time">string of the time it took to finish a game</param>
         public Highscore(string Name, int Score, string Time)
         {
             this.Name = Name;

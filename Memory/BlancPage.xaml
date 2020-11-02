@@ -5,10 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Memory"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="BlancPage">
+      d:DesignHeight="410" d:DesignWidth="775"
+      Title="BlancPage" Width="775" Height="410" MinWidth="775" MinHeight="410">
 
-    <Grid>
-        
-    </Grid>
+
 </Page>

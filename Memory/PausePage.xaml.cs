@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,72 +9,59 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Memory.Classes;
 
 namespace Memory
 {
-    /// <summary>
-    /// Interaction logic for PausePage.xaml
-    /// </summary>
-    public partial class PausePage : Page
+    public partial class pausepage : Page
     {
-        public PausePage()
+        private GamePage gamePage;
+
+        /// <summary>
+        /// InitializeComponents and saves the gamePage so it can be resumed.
+        /// </summary>
+        /// <param name="gamePage"></param>
+        public pausepage(GamePage gamePage)
         {
             InitializeComponent();
-        }
 
-        /// <summary>
-        /// Navigates to WelkomPage
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Instellingenbtn_Click(object sender, RoutedEventArgs e)
-        {
-            // through the course of clicking the button the navigation system switches the current frame uri to the new one//
-            NavigationService.Navigate(new InstellingenPage());
+            this.gamePage = gamePage;
         }
-
+        
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Startoverbtn_Click(object sender, RoutedEventArgs e)
-        {
-            // through the course of clicking the button the navigation system switches the current frame uri to the new one//
-            NavigationService.Navigate(new MemoryPage());
-        }
-        /// <summary>
-        /// Navigates to MemoryPage after resuming game
+        /// Resumes game (navigates back to the gamePage with the saved "gamePage")
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Hervatbtn_Click(object sender, RoutedEventArgs e)
         {
-            // through the course of clicking the button the navigation system switches the current frame uri to the new one//
-            NavigationService.Navigate(new MemoryPage());
+            NavigationService.Navigate(gamePage);
         }
+
         /// <summary>
-        /// Saves game and navigates WelkomPage
+        /// Saves the game
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Opslaanbtn_Click(object sender, RoutedEventArgs e)
         {
-            // through the course of clicking the button the navigation system switches the current frame uri to the new one//
+            gamePage.SaveGamePage();
             NavigationService.Navigate(new WelkomPage());
         }
+
         /// <summary>
-        /// Deletes your current game and navigates to WelkomPage
+        /// Exits the game without saving
+        /// Redirects to WelkomPage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Quitbtn_Click(object sender, RoutedEventArgs e)
         {
-            // through the course of clicking the button the navigation system switches the current frame uri to the new one//
             NavigationService.Navigate(new WelkomPage());
         }
     }

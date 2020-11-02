@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Memory"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!--down here are two styles created for the use for a finer kind of button so that it while be more round like then square-->
+        <!--down here are two styles created for the use for a finer kind of button so that it while be more round like then square-->        
         <Style x:Key="RoundCorner" TargetType="{x:Type Button}">
             <!-- the target type will tell that the only thing able to use this type has to be a button-->
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -48,5 +48,5 @@
 
 
     </Application.Resources>
-
+    
 </Application>

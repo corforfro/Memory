@@ -65,7 +65,7 @@ namespace Memory
         /// <param name="e"></param>
         private void Startbtn_Click(object sender, RoutedEventArgs e)
         {
-            // through the course of clicking the button the navigation system switches the current frame uri to the new one//
+            // through the course of clicking the button the navigation system switches the current frame uri to the new one.//
             NavigationService.Navigate(new SpelSelectiePage());
         }
 
@@ -76,7 +76,7 @@ namespace Memory
         /// <param name="e"></param>
         private void Loadbtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MemoryPage(true));
+            NavigationService.Navigate(new GamePage(true));
         }
     }
 }

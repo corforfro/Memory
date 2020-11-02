@@ -43,11 +43,11 @@ namespace Memory
         private int player2Score;
         private bool singleplayer;
 
-        // private Highscore //
+        private HighscoreList highscoreList = HighscoreList.Instance();
 
-        /// <summary>
-        /// <param>timer</param>
-        /// </summary>
+        private DispatcherTimer clock = new DispatcherTimer();
+        private bool clockInstance;
+        public int TotalTime;
 
         private int singlePlayerScore;
         private int singlePlayerCombo;
@@ -129,19 +129,19 @@ namespace Memory
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-         /* public void Page_loaded(object sender, RoutedEventArgs e)
+          public void Page_loaded(object sender, RoutedEventArgs e)
         {
             // if starting value is false initialize the timer
-            if (TimerInstance == false)
+            if (clockInstance == false)
             {
-                timer.Interval = TimeSpan.FromSeconds(1);
-                timer.Tick += TimeTicker;
-                timer.Start();
-                timerInstance = true;
+                clock.Interval = TimeSpan.FromSeconds(1);
+                clock.Tick += TimeTicker;
+                clock.Start();
+                clockInstance = true;
             }    
             else // resume time
             {
-                timer.start();
+                clock.Start();
             }
         }
 
@@ -156,7 +156,7 @@ namespace Memory
         {
             TotalTime++;
             Timerlabel.Content = TotalTime.ToString();
-        } */
+        }
 
         /// <summary>
         /// Navigates to pausepage and stops the timer
@@ -166,8 +166,8 @@ namespace Memory
         public void Pauzebtn_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new PausePage(this));
-            /* puts a stop on the timer.
-            timer.Stop(); */
+            // puts a stop on the timer.
+            clock.Stop();
         }
 
         /// <summary>
@@ -201,11 +201,11 @@ namespace Memory
         }
 
 
-        /*
-                 SoundPlayer FlipSound = new SoundPlayer(@"../../Resources/music/cardflip.wav");
-        SoundPlayer WinSound = new SoundPlayer(@"../../Resources/music/win.wav");
-        SoundPlayer FailSound = new SoundPlayer(@"../../Resources/music/fail.wav");
-        */
+        
+        SoundPlayer FlipSound = new SoundPlayer(@"../../Resource/music/cardflip.wav");
+        SoundPlayer WinSound = new SoundPlayer(@"../../Resource/music/win.wav");
+        SoundPlayer FailSound = new SoundPlayer(@"../../Resource/music/fail.wav");
+        
         ///<summary>
         /// handles the click event of cards.
         /// </summary>
@@ -240,11 +240,11 @@ namespace Memory
         {
             if ((bool)Settings.Default["sound"])
             {
-                /*
+                
                 WinSound.Stop();
                 FailSound.Stop();
                 FlipSound.Play();
-                 */
+                 
             }
 
             if (cardsOpen == 2)
@@ -274,10 +274,10 @@ namespace Memory
             {
                 if ((bool)Settings.Default["Sound"])
                 {
-                    /*
+                    
                     FlipSound.Stop();
                     FailSound.Play();
-                    */
+                    
                 }
                 currentPlayer = (currentPlayer == player1) ? player2 : player1;
                 UpdatePlayer(currentPlayer);
@@ -288,10 +288,10 @@ namespace Memory
             {
                 if ((bool)Settings.Default["Sound"])
                 {
-                    /*
+                    
                     FlipSound.Stop();
                     WinSound.Play();
-                    */
+                    
                 }
                 // adds a point to score and combo meter
                 UpdateScore();
@@ -306,10 +306,10 @@ namespace Memory
             {
                 if ((bool) Settings.Default["sound"])
                 {
-                    /*
+                    
                     FlipSound.Stop();
-                    failSound.Play();
-                    */
+                    FailSound.Play();
+                    
                 }
                 // resets combometer
                 singlePlayerCombo = 0;
@@ -427,11 +427,11 @@ namespace Memory
         /// </summary>
         /// <param name="playername"> string name of  the playername</param>
         /// <param name="score"> string name of the score</param>
-        /// <param name="timer"> string of the timer</param>
-        private void SubmitScore(string playername, int score, int combo, int timer)
+        /// <param name="clock"> string of the timer</param>
+        private void SubmitScore(string playername, int score, int combo, int clock)
         {
-            int minutes = timer / 60;
-            string seconds = (timer % 60).ToString();
+            int minutes = clock / 60;
+            string seconds = (clock % 60).ToString();
 
             if (Int32.Parse(seconds) < 10)
             {
@@ -443,7 +443,8 @@ namespace Memory
             singlePlayerScore += score * combo / (1 + minutes);
 
 
-            highscorelist.AddHighscore(new Highscore(playername, singlePlayerScore, time));
+            highscoreList.AddHighscore(new Highscore(playername, singlePlayerScore, time));
+            highscoreList.Save();
         }
 
         /// <summary>
@@ -520,7 +521,7 @@ namespace Memory
             tw.WriteLine(player1Score);
             tw.WriteLine(player2Score);
             tw.WriteLine(singleplayer);
-            tw.WriteLine(Totaltime);
+            tw.WriteLine(TotalTime);
             tw.WriteLine(singlePlayerScore);
 
             // Loops trough all the bgImages and writes them as individual lines in memory.sav

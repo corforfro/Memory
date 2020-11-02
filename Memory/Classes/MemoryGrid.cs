@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,11 +15,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using System.Xaml;
 using System.Xml;
 using Memory.Properties;
 
-namespace Memory
+namespace Memory.Classes
 {
     class MemoryGrid
     {
@@ -32,33 +30,33 @@ namespace Memory
         private List<ImageSource> images = new List<ImageSource>();
         private List<Image> bgImages = new List<Image>();
 
-        private MemoryPage memoryPage;
+        private GamePage gamePage;
 
         private Image firstCard;
         private Image secondCard;
 
         /// <summary>
-        /// initializes the given values of grid, rows, cols, gamepage, firstcard and secondcard.
-        /// calls initializeGameGrid(cols, rows);
+        /// Initializes the given values of grid, rows, cols, gamepage, firstcard and secondcard.
+        /// calls InitializeGameGrid(cols, rows);
         /// Puts new images or loads images in depending if loadGame is true.
         /// </summary>
         /// <param name="grid"></param>
         /// <param name="cols"></param>
         /// <param name="rows"></param>
         /// <param name="backImages"></param>
-        /// <param name="memoryPage"></param>
+        /// <param name="gamePage"></param>
         /// <param name="loadGame"></param>
         /// <param name="firstCard"></param>
         /// <param name="secondCard"></param>
-        public MemoryGrid(Grid grid, int cols, int rows, List<Image> backImages, MemoryPage memoryPage, bool loadGame, Image firstCard, Image secondCard)
+        public MemoryGrid(Grid grid, int cols, int rows, List<Image> backImages, GamePage gamePage, bool loadGame, Image firstCard, Image secondCard)
         {
             this.rows = rows;
             this.cols = cols;
             this.grid = grid;
-            this.memoryPage = memoryPage;
+            this.gamePage = gamePage;
             this.firstCard = firstCard;
             this.secondCard = secondCard;
-            InitializeMemoryGrid(cols, rows);
+            InitializeGameGrid(cols, rows);
             if (loadGame)
             {
                 LoadImages(backImages);
@@ -68,36 +66,36 @@ namespace Memory
                 AddImages();
             }
         }
-        ///<summary>
-        /// return grid.
+
+        /// <summary>
+        /// Returns the grid.
         /// </summary>
         /// <returns>grid</returns>
-        public Grid GetGrid()
+        public Grid getGrid()
         {
             return grid;
         }
 
-        ///<summary>
-        /// Create a list of all images of the current theme, furthermore it randomizes it and returns the list.
+        /// <summary>
+        /// Creates a list of all the images of the active theme, randomizes it and returns the list.
         /// </summary>
         /// <returns>images</returns>
-        private List<ImageSource> GetImageList()
+        private List<ImageSource> GetImagesList()
         {
             for (int i = 0; i < (cols * rows); i++)
             {
                 int imagenr = i % 8 + 1;
-                ImageSource source = new BitmapImage(new Uri("Resource/Pictures/" + (string)Settings.Default["ThemeName"] + "/" + imagenr + ".png", UriKind.Relative));
+                ImageSource source = new BitmapImage(new Uri("Resources/themes/" + (string)Settings.Default["ThemeName"] + "/" + imagenr + ".png", UriKind.Relative));
                 images.Add(source);
-
             }
 
             images = randomize(images);
 
             return images;
-
         }
-        ///<summary>
-        /// randomizes the given list <imageSource>
+
+        /// <summary>
+        /// Randomizes the given List<ImageSource> 
         /// </summary>
         /// <param name="imageSources"></param>
         /// <returns></returns>
@@ -108,88 +106,95 @@ namespace Memory
             {
                 int r = random.Next(0, (rows + cols));
                 ImageSource temp = imageSources[r];
-                imageSources[r] = imageSources[r];
+                imageSources[r] = imageSources[i];
                 imageSources[i] = temp;
             }
 
             return imageSources;
         }
 
-        ///<summary>
-        /// loads in images from GetImagesList and initializes all the images.
+        /// <summary>
+        /// Loads in the images from GetImagesList() and initializes all the images. 
         /// </summary>
         private void AddImages()
         {
-            images = GetImageList();
+            images = GetImagesList();
             int imageNumber = 0;
             for (int row = 0; row < rows; row++)
             {
                 for (int column = 0; column < cols; column++)
                 {
                     Image backgroundimage = new Image();
-                    backgroundimage.Source = new BitmapImage(new Uri("Resource/Pictures/" + (string)Settings.Default["ThemeName"] + "/backimag.pgn", UriKind.Relative));
+                    backgroundimage.Source = new BitmapImage(new Uri("Resources/themes/" + (string)Settings.Default["ThemeName"] + "/achterkant.png", UriKind.Relative));
                     backgroundimage.Tag = images[imageNumber];
                     imageNumber++;
                     backgroundimage.DataContext = backgroundimage.Source;
-                    backgroundimage.MouseDown += new MouseButtonEventHandler(memoryPage.cardclick);
+                    backgroundimage.MouseDown += new MouseButtonEventHandler(gamePage.cardclick);
 
-                    /// hier eventueel animatie voor omdraaien kaart.
-                    /// 
-                    ///
-                    ///
-                    /// . kind of must have
+                    // adds the AnimationImage style to the cards for a pretty load in.
+                    Style style = gamePage.FindResource("AnimationImage") as Style;
+                    backgroundimage.Style = style;
+
+                    Grid.SetColumn(backgroundimage, column);
+                    Grid.SetRow(backgroundimage, row);
+                    grid.Children.Add(backgroundimage);
+                    bgImages.Add(backgroundimage);
                 }
             }
         }
+
         /// <summary>
-        ///  Randomize the given list <Image
+        /// Adds the "savedImages" cards to the grid.
         /// </summary>
         /// <param name="savedImages"></param>
         private void LoadImages(List<Image> savedImages)
         {
             int imageNumber = 0;
-            // loop through all the rows and columns
+            // loops trough all the rows and cols
             for (int row = 0; row < rows; row++)
             {
                 for (int column = 0; column < cols; column++)
                 {
                     Image backgroundimage = savedImages[imageNumber];
 
-                    // check up for any opened cards & show correct sources
+                    // checks if any cards where opened when saved and shows the correct source.
                     if (backgroundimage.Tag.ToString() == firstCard.Source.ToString())
                     {
                         backgroundimage.Source = firstCard.Source;
                     }
-                    else if (backgroundimage.Tag.ToString() == secondCard.Source.ToString())
+                    else if(backgroundimage.Tag.ToString() == secondCard.Source.ToString())
                     {
                         backgroundimage.Source = secondCard.Source;
                     }
                     else
                     {
-                        backgroundimage.Source = new BitmapImage(new Uri("Resource/Pictures/" + (string)Settings.Default["ThemeName"] + "/Backimag.png", UriKind.Relative));
-                    }
-                    backgroundimage.MouseDown += new MouseButtonEventHandler(memoryPage.cardclick);
+                        backgroundimage.Source = new BitmapImage(new Uri("Resources/themes/" + (string)Settings.Default["ThemeName"] + "/achterkant.png", UriKind.Relative));
 
-                    backgroundimage.DataContext = new BitmapImage(new Uri("Resource/Pictures/" + (string)Settings.Default["ThemeName"] + "/Backimag.pgn", UriKind.Relative));
+                    }
+                    backgroundimage.MouseDown += new MouseButtonEventHandler(gamePage.cardclick);
+
+                    backgroundimage.DataContext = new BitmapImage(new Uri("Resources/themes/" + (string)Settings.Default["ThemeName"] + "/achterkant.png", UriKind.Relative));
 
                     imageNumber++;
 
-                    /// hier eventueel animatie voor omdraaien kaart.
-                    /// 
-                    ///
-                    ///
-                    /// . kind of must have
+                    // adds the AnimationImage style to the cards for a pretty load in.
+                    Style style = gamePage.FindResource("AnimationImage") as Style;
+                    backgroundimage.Style = style;
+
+                    Grid.SetColumn(backgroundimage, column);
+                    Grid.SetRow(backgroundimage, row);
+                    grid.Children.Add(backgroundimage);
+                    bgImages.Add(backgroundimage);
                 }
             }
-
         }
 
         /// <summary>
-        /// Add RowDefinition and ColumnDefinitions to the grid. The amount depends on the given cols and rows.
+        /// Adds RowDefinitions and ColumnDefinitions to the grid. The amount depends on the given cols and rows.
         /// </summary>
         /// <param name="cols"></param>
         /// <param name="rows"></param>
-        private void InitializeMemoryGrid(int cols, int rows)
+        private void InitializeGameGrid(int cols, int rows)
         {
             for (int i = 0; i < rows; i++)
             {
@@ -201,14 +206,13 @@ namespace Memory
             }
         }
 
-        ///<summary>
-        /// return background images
+        /// <summary>
+        /// Returns bgImages
         /// </summary>
-        /// < returns> bgImages </returns>
+        /// <returns>bgImages</returns>
         public List<Image> getBgImages()
         {
             return bgImages;
         }
     }
 }
-

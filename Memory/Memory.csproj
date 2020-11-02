@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CD584166-02AE-4E40-BB94-4F512163411E}</ProjectGuid>
+    <ProjectGuid>{6ECA9DB9-1070-4441-A9AB-BC2B25B6CD75}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Memory</RootNamespace>
     <AssemblyName>Memory</AssemblyName>
@@ -59,18 +59,32 @@
     <Compile Include="Classes\HighscoreList.cs" />
     <Compile Include="Classes\MemoryGrid.cs" />
     <Compile Include="Classes\ObjectSterializer.cs" />
+    <Compile Include="BlancPage.xaml.cs">
+      <DependentUpon>BlancPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InstellingenPage.xaml.cs">
       <DependentUpon>InstellingenPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MemoryPage.xaml.cs">
-      <DependentUpon>MemoryPage.xaml</DependentUpon>
+    <Compile Include="pausepage.xaml.cs">
+      <DependentUpon>pausepage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PausePage.xaml.cs">
-      <DependentUpon>PausePage.xaml</DependentUpon>
+    <Compile Include="SpelSelectiePage.xaml.cs">
+      <DependentUpon>SpelSelectiePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="WelkomPage.xaml.cs">
       <DependentUpon>WelkomPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="BlancPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InstellingenPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,11 +101,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MemoryPage.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="pausepage.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="PausePage.xaml">
+    <Page Include="SpelSelectiePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,7 +141,97 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resource\" />
+    <Resource Include="Resources\memo.png" />
+    <Resource Include="Resources\memo2.png" />
+    <Resource Include="Resources\memo3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons memory\achterkant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icons memory\1.png" />
+    <Resource Include="icons memory\2.png" />
+    <Resource Include="icons memory\3.png" />
+    <Resource Include="icons memory\4.png" />
+    <Resource Include="icons memory\5.png" />
+    <Resource Include="icons memory\6.png" />
+    <Resource Include="icons memory\7.png" />
+    <Resource Include="icons memory\8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Music\background_music.wav" />
+    <Content Include="Resources\Music\cardflip.wav" />
+    <Content Include="Resources\Music\fail.wav" />
+    <Content Include="Resources\Music\win.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\themes\Windows10\1.png" />
+    <Resource Include="Resources\themes\Windows10\2.png" />
+    <Resource Include="Resources\themes\Windows10\3.png" />
+    <Resource Include="Resources\themes\Windows10\4.png" />
+    <Resource Include="Resources\themes\Windows10\5.png" />
+    <Resource Include="Resources\themes\Windows10\6.png" />
+    <Resource Include="Resources\themes\Windows10\7.png" />
+    <Resource Include="Resources\themes\Windows10\8.png" />
+    <Resource Include="Resources\themes\Windows10\achterkant.png" />
+    <Resource Include="Resources\themes\Windows95\1.png" />
+    <Resource Include="Resources\themes\Windows95\2.png" />
+    <Resource Include="Resources\themes\Windows95\3.png" />
+    <Resource Include="Resources\themes\Windows95\4.png" />
+    <Resource Include="Resources\themes\Windows95\5.png" />
+    <Resource Include="Resources\themes\Windows95\6.png" />
+    <Resource Include="Resources\themes\Windows95\7.png" />
+    <Resource Include="Resources\themes\Windows95\8.png" />
+    <Resource Include="Resources\themes\Windows95\achterkant.png" />
+    <Resource Include="Resources\themes\Dieren\1.png" />
+    <Resource Include="Resources\themes\Dieren\2.png" />
+    <Resource Include="Resources\themes\Dieren\3.png" />
+    <Resource Include="Resources\themes\Dieren\4.png" />
+    <Resource Include="Resources\themes\Dieren\5.png" />
+    <Resource Include="Resources\themes\Dieren\6.png" />
+    <Resource Include="Resources\themes\Dieren\7.png" />
+    <Resource Include="Resources\themes\Dieren\8.png" />
+    <Resource Include="Resources\themes\Dieren\achterkant.png" />
+    <Resource Include="Resources\themes\DumbWaysToDie\1.png" />
+    <Resource Include="Resources\themes\DumbWaysToDie\2.png" />
+    <Resource Include="Resources\themes\DumbWaysToDie\3.png" />
+    <Resource Include="Resources\themes\DumbWaysToDie\4.png" />
+    <Resource Include="Resources\themes\DumbWaysToDie\5.png" />
+    <Resource Include="Resources\themes\DumbWaysToDie\6.png" />
+    <Resource Include="Resources\themes\DumbWaysToDie\7.png" />
+    <Resource Include="Resources\themes\DumbWaysToDie\8.png" />
+    <Resource Include="Resources\themes\DumbWaysToDie\achterkant.png" />
+    <Resource Include="Resources\themes\Fallout\1.png" />
+    <Resource Include="Resources\themes\Fallout\2.png" />
+    <Resource Include="Resources\themes\Fallout\3.png" />
+    <Resource Include="Resources\themes\Fallout\4.png" />
+    <Resource Include="Resources\themes\Fallout\5.png" />
+    <Resource Include="Resources\themes\Fallout\6.png" />
+    <Resource Include="Resources\themes\Fallout\7.png" />
+    <Resource Include="Resources\themes\Fallout\8.png" />
+    <Resource Include="Resources\themes\Fallout\achterkant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\themes\Pokemon\1.png" />
+    <Resource Include="Resources\themes\Pokemon\2.png" />
+    <Resource Include="Resources\themes\Pokemon\3.png" />
+    <Resource Include="Resources\themes\Pokemon\4.png" />
+    <Resource Include="Resources\themes\Pokemon\5.png" />
+    <Resource Include="Resources\themes\Pokemon\6.png" />
+    <Resource Include="Resources\themes\Pokemon\7.png" />
+    <Resource Include="Resources\themes\Pokemon\8.png" />
+    <Resource Include="Resources\themes\Pokemon\achterkant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\themes\Sport\1.png" />
+    <Resource Include="Resources\themes\Sport\2.png" />
+    <Resource Include="Resources\themes\Sport\3.png" />
+    <Resource Include="Resources\themes\Sport\4.png" />
+    <Resource Include="Resources\themes\Sport\5.png" />
+    <Resource Include="Resources\themes\Sport\6.png" />
+    <Resource Include="Resources\themes\Sport\7.png" />
+    <Resource Include="Resources\themes\Sport\8.png" />
+    <Resource Include="Resources\themes\Sport\achterkant.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
