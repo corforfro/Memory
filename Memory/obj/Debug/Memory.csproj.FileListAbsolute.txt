@@ -40,7 +40,6 @@ C:\Users\thefr\Documents\GitHub\Memories\Memory\obj\Debug\pausepage.g.cs
 C:\Users\thefr\Documents\GitHub\Memories\Memory\obj\Debug\SpelSelectiePage.g.cs
 C:\Users\thefr\Documents\GitHub\Memories\Memory\obj\Debug\WelkomPage.g.cs
 C:\Users\thefr\Documents\GitHub\Memories\Memory\obj\Debug\App.g.cs
-C:\Users\thefr\Documents\GitHub\Memories\Memory\obj\Debug\Memory_Content.g.cs
 C:\Users\thefr\Documents\GitHub\Memories\Memory\obj\Debug\Memory_MarkupCompile.cache
 C:\Users\thefr\Documents\GitHub\Memories\Memory\obj\Debug\Memory_MarkupCompile.lref
 C:\Users\thefr\Documents\GitHub\Memories\Memory\obj\Debug\Memory.exe
